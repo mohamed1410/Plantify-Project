@@ -1,0 +1,6 @@
+[
+    { "id": 1, "name": "Plant 1", "type": "Flower" ,"price": 5},
+    { "id": 2, "name": "Plant 2", "type": "Tree" ,"price": 94},
+    { "id": 3, "name": "Plant 3", "type": "Shrub","price": 20 },
+  {"id":4,"name":"plant 4","type":"Palm","price": 132 }
+]

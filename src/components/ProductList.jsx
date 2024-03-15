@@ -3,49 +3,23 @@ import axios from 'axios';
 import ProductCard from './ProductCard';
 import placeholderImage from '../assets/placeholder.png';
 
-import { mockPlants } from '../mockData';
+import  mockPlants  from '../mockData/mockPlants.json'
 
 const ProductList = () => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(mockPlants);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://trefle.io/api/v1/plants?token=1uaZNpXM04heVaWfHOM1mY0bbZaPdEDvDDMmZ5EUbnQ'); 
-        setProducts(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Failed to fetch data. Please try again later.');
-        setLoading(false);
-      }
-    };
-    fetchData();
-    
-    // Cleanup function to reset error state if component unmounts
-    return () => {
-      setError(null);
-    };
-  }, []);
-   
-
-  if (loading) {
-    return <div className="loading-indicator">Loading...</div>; // Enhance loading indicator
-  }
-
-  if (error) {
-    return <div className="error-message">Error: {error}</div>; // Provide a more user-friendly error message
-  }
+  const handleAddToCart = (productId) => {
+    // Add logic to handle adding the product to the cart
+    console.log('Adding product to cart:', productId);
+  };
 
   return (
     <div className="product-list">
-      {products.map(product => (
-        <ProductCard key={product.id} product={product} />
+      {products.map((product) => (
+        <ProductCard key={product.id} product={product} onAddToCart={handleAddToCart} />
       ))}
     </div>
   );
-}
+};
 
 export default ProductList;
