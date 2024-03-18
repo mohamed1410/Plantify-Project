@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes and BrowserRouter
 import Home from './pages/Home';
 import Shop from './pages/Shop';
@@ -8,14 +8,18 @@ import CheckoutPage from './pages/CheckoutPage';
 import OrderConfirmation from './pages/OrderConfirmation';
 import NotFound from './pages/NotFound';
 
+
 const App = () => {
+  const [productsInCart, setProductInCart] = useState([])
+
   return (
     <Router> {/* Wrap your routes with the Router component */}
+    
       <Routes> {/* Use Routes instead of a div */}
         <Route exact path="/" element={<Home />} /> {/* Use element prop instead of component */}
-        <Route path="/shop" element={<Shop />} />
+        <Route path="/shop" element={<Shop productsInCart={productsInCart} setProductInCart={setProductInCart}/>} />
         <Route path="/product/:productId" element={<ProductDetails />} />
-        <Route path="/cart" element={<CartPage />} />
+        <Route path="/cart" element={<CartPage  productsInCart={productsInCart} setProductInCart={setProductInCart}/>} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
         <Route path="*" element={<NotFound />} />
@@ -25,3 +29,5 @@ const App = () => {
 }
 
 export default App;
+
+

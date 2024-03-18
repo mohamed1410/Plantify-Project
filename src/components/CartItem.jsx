@@ -1,5 +1,5 @@
-import React from 'react';
-import cartImage from '../assets/cart.png'; // adjust the path accordingly
+ import React from 'react';
+ import cartImage from '../assets/cart.png'; // adjust the path accordingly
 
 const CartItem = ({ item, onRemoveItem }) => {
   const { name, quantity, price } = item;
@@ -23,3 +23,4 @@ const CartItem = ({ item, onRemoveItem }) => {
 }
 
 export default CartItem;
+

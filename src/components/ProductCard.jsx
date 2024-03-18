@@ -1,14 +1,18 @@
 import React from 'react';
 import placeholderImage from '../assets/placeholder.png'; // Import a placeholder image
 
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product,productsInCart, setProductInCart }) => {
   const { id, name, image, price } = product;
+
 
   const handleAddToCart = () => {
     // Call the onAddToCart function and pass the product ID
-    console.log("onAddToCart:", onAddToCart); // Log the onAddToCart function
-    console.log("id:", id); // Log the product ID
-    onAddToCart(id);
+
+    console.log(product);
+
+    setProductInCart([product,...productsInCart]);
+    console.log(productsInCart)
+    // onAddToCart(id);
   };
 
   return (
@@ -22,3 +26,8 @@ const ProductCard = ({ product, onAddToCart }) => {
 }
 
 export default ProductCard;
+
+
+
+
+

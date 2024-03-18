@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import profileIcon from '../assets/profile-icon.png';
+import profileIcon from '../assets/profileIcon.png';
 
 const CheckoutForm = () => {
   const [formData, setFormData] = useState({
