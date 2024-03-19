@@ -32,8 +32,8 @@
 import React from 'react';
 import placeholderImage from '../assets/placeholder.png';
 
-const ProductCard = ({ product, productsInCart, setProductInCart }) => {
-  console.log("Rendering product:", product.name);
+const ProductCard = ({ product, onDelete, productsInCart, setProductInCart }) => {
+  
   const { id, name, image, price } = product;
 
   const handleAddToCart = () => {
@@ -47,6 +47,8 @@ const ProductCard = ({ product, productsInCart, setProductInCart }) => {
       <h3>{name}</h3>
       <p>${price}</p>
       <button onClick={handleAddToCart} className="btn-add-to-cart">Add to Cart</button>
+      {/* Delete button */}
+      <button onClick={() => onDelete(id)} className="delete-button">Delete</button>
     </div>
   );
 };

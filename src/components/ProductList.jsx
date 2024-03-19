@@ -49,6 +49,59 @@
 // export default ProductList;
 
 
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import ProductCard from './ProductCard';
+// import AddProductForm from './AddProduct'; // Ensure this import is correct
+
+// const ProductList = ({ productsInCart, setProductInCart }) => {
+//   const [products, setProducts] = useState([]);
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         // Use axios to fetch data from your backend
+//         const response = await axios.get(`http://localhost:3000/plants`);
+//         // Assuming your backend returns the products in the desired structure
+//         setProducts(response.data);
+//       } catch (error) {
+//         console.error('Error fetching data from backend:', error);
+//       }
+//     };
+
+//     fetchProducts();
+//   }, []);
+//   const addProduct = async (newProduct) => {
+//     try {
+//       // POST request to add a new product to the backend
+//       const response = await axios.post(`http://localhost:3000/plants`, newProduct);
+//       // Update local state with the newly added product (including any ID assigned by the backend)
+//       setProducts([...products, response.data]);
+//     } catch (error) {
+//       console.error('Error adding new product:', error);
+//     }
+//   };
+//   return (
+//     <div>
+//       <h2>Product List</h2>
+//       <AddProductForm onAddProduct={(newProduct) => setProducts([...products, newProduct])} />
+//       <div className="product-list">
+//         {products.map((product) => (
+//           <ProductCard
+//             key={product.id}
+//             product={product}
+//             productsInCart={productsInCart}
+//             setProductInCart={setProductInCart}
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ProductList;
+
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import ProductCard from './ProductCard';
@@ -56,40 +109,59 @@ import AddProductForm from './AddProduct'; // Ensure this import is correct
 
 const ProductList = ({ productsInCart, setProductInCart }) => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        // Use axios to fetch data from your backend
-        const response = await axios.get(`http://localhost:3000/plants`);
-        // Assuming your backend returns the products in the desired structure
-        setProducts(response.data);
-      } catch (error) {
-        console.error('Error fetching data from backend:', error);
-      }
-    };
-
-    fetchProducts();
-  }, []);
-  const addProduct = async (newProduct) => {
+  const fetchProducts = async () => {
+    setLoading(true);
     try {
-      // POST request to add a new product to the backend
-      const response = await axios.post(`http://localhost:3000/plants`, newProduct);
-      // Update local state with the newly added product (including any ID assigned by the backend)
-      setProducts([...products, response.data]);
-    } catch (error) {
-      console.error('Error adding new product:', error);
+      const response = await axios.get(`http://localhost:3000/plants`);
+      setProducts(response.data);
+    } catch (err) {
+      console.error('Error fetching data from backend:', err);
+      setError('Failed to fetch products.');
+    } finally {
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const addProduct = async (newProduct) => {
+    try {
+      await axios.post(`http://localhost:3000/plants`, newProduct);
+      fetchProducts(); // Refetch products to include the newly added product
+    } catch (err) {
+      console.error('Error adding new product:', err);
+      setError('Failed to add product.');
+    }
+  };
+
+  const deleteProduct = async (productId) => {
+    try {
+      await axios.delete(`http://localhost:3000/plants/${productId}`);
+      fetchProducts(); // Refetch products to update the list after deletion
+    } catch (err) {
+      console.error('Error deleting product:', err);
+      setError('Failed to delete product.');
+    }
+  };
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
     <div>
       <h2>Product List</h2>
-      <AddProductForm onAddProduct={(newProduct) => setProducts([...products, newProduct])} />
+      <AddProductForm onAddProduct={addProduct} />
       <div className="product-list">
         {products.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
+            onDelete={() => deleteProduct(product.id)} // Assuming ProductCard supports onDelete prop
             productsInCart={productsInCart}
             setProductInCart={setProductInCart}
           />
@@ -100,4 +172,3 @@ const ProductList = ({ productsInCart, setProductInCart }) => {
 };
 
 export default ProductList;
-
