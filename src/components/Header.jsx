@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/medium.jpg';
-import '../App.css'; // Import custom CSS for header styling
+import '../App.css'; 
 
 const Header = ({}) => {
   return (

@@ -1,11 +1,11 @@
  import React from 'react';
- import cartImage from '../assets/cart.png'; // adjust the path accordingly
+ import cartImage from '../assets/cart.png'; 
 
 const CartItem = ({ item, onRemoveItem }) => {
   const { name, quantity, price } = item;
 
   const handleRemoveClick = () => {
-    // Call the onRemoveItem function and pass the item to be removed
+    
     onRemoveItem(item);
   };
 
