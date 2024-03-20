@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import ProductList from '../components/ProductList';
-
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000"
 const Shop = ({productsInCart,setProductInCart}) => {
   const [products, setProducts] = useState([]);
   
@@ -13,7 +13,7 @@ const Shop = ({productsInCart,setProductInCart}) => {
   const [error, setError] = useState(null); 
 
   useEffect(() => {
-    axios.get('/api/products')
+    axios.get(`${API_URL}/plants`)
       .then(response => {
         setProducts(response.data);
         setLoading(false); 

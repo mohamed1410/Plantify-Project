@@ -8,8 +8,8 @@ import AddProductForm from './AddProduct';
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-const ProductList = ({ productsInCart, setProductInCart }) => {
-  const [products, setProducts] = useState([]);
+const ProductList = ({ productsInCart, setProductInCart,products }) => {
+ console.log({products})
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -17,7 +17,7 @@ const ProductList = ({ productsInCart, setProductInCart }) => {
     setLoading(true);
     try {
       const response = await axios.get(`${API_URL}/plants`);
-      setProducts(response.data);
+      
     } catch (err) {
       console.error('Error fetching data from backend:', err);
       setError('Failed to fetch products.');
@@ -27,12 +27,13 @@ const ProductList = ({ productsInCart, setProductInCart }) => {
   };
 
   useEffect(() => {
-    fetchProducts();
+    //fetchProducts();
   }, []);
 
   const addProduct = async (newProduct) => {
     try {
       await axios.post(`${API_URL}/plants`, newProduct);
+    
       fetchProducts(); 
     } catch (err) {
       console.error('Error adding new product:', err);
@@ -49,7 +50,15 @@ const ProductList = ({ productsInCart, setProductInCart }) => {
       setError('Failed to delete product.');
     }
   };
-
+  const editProduct = async (productId, updatedProduct) => {
+    try {
+      await axios.put(`${API_URL}/plants/${productId}`, updatedProduct);
+      fetchProducts(); 
+    } catch (err) {
+      console.error('Error updating product:', err);
+      setError('Failed to update product.');
+    }
+  };
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -62,7 +71,8 @@ const ProductList = ({ productsInCart, setProductInCart }) => {
           <ProductCard
             key={product.id}
             product={product}
-            onDelete={() => deleteProduct(product.id)} 
+            onDelete={deleteProduct} 
+            onEdit={editProduct}
             productsInCart={productsInCart}
             setProductInCart={setProductInCart}
           />
