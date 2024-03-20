@@ -32,7 +32,7 @@ function ShoppingCart() {
         ))}
       </ul>
       <p>Total Price: ${calculateTotalPrice()}</p>
-      {/* Implement additional functionality such as adding items to the cart */}
+     
     </div>
   );
 }

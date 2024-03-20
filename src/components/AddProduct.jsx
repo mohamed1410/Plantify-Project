@@ -14,8 +14,8 @@ const AddProductForm = ({ onAddProduct }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddProduct(newProduct); // Call the onAddProduct function passed via props
-    setNewProduct({ name: '', price: '', description: '', image: '' }); // Reset the form
+    onAddProduct(newProduct); 
+    setNewProduct({ name: '', price: '', description: '', image: '' }); 
   };
 
   return (
@@ -25,7 +25,7 @@ const AddProductForm = ({ onAddProduct }) => {
         <input
           type="text"
           id="productName"
-          name="name" // Ensure the 'name' attribute matches your state property
+          name="name" 
           className="form-control"
           value={newProduct.name}
           onChange={handleChange}
@@ -38,7 +38,7 @@ const AddProductForm = ({ onAddProduct }) => {
         <input
           type="number"
           id="productPrice"
-          name="price" // Match the 'name' attribute with your state property
+          name="price" 
           className="form-control"
           value={newProduct.price}
           onChange={handleChange}
@@ -50,7 +50,7 @@ const AddProductForm = ({ onAddProduct }) => {
         <label htmlFor="productDescription" className="form-label">Description</label>
         <textarea
           id="productDescription"
-          name="description" // 'name' attribute is essential for handleChange to work
+          name="description" 
           className="form-control form-textarea"
           value={newProduct.description}
           onChange={handleChange}
@@ -62,7 +62,7 @@ const AddProductForm = ({ onAddProduct }) => {
         <input
           type="text"
           id="productImage"
-          name="image" // 'name' attribute helps in updating the state
+          name="image" 
           className="form-control"
           value={newProduct.image}
           onChange={handleChange}

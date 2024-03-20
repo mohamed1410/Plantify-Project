@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import Routes and BrowserRouter
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
 import Home from './pages/Home';
 import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
@@ -13,10 +13,10 @@ const App = () => {
   const [productsInCart, setProductInCart] = useState([])
 
   return (
-    <Router> {/* Wrap your routes with the Router component */}
+    <Router> 
     
-      <Routes> {/* Use Routes instead of a div */}
-        <Route exact path="/" element={<Home />} /> {/* Use element prop instead of component */}
+      <Routes> 
+        <Route exact path="/" element={<Home />} /> 
         <Route path="/shop" element={<Shop productsInCart={productsInCart} setProductInCart={setProductInCart}/>} />
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/cart" element={<CartPage  productsInCart={productsInCart} setProductInCart={setProductInCart}/>} />
