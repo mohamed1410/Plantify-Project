@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 function ShoppingCart() {
   const [cartItems, setCartItems] = useState([]);
 
-  // Function to add an item to the cart
+ 
   const addItemToCart = (item) => {
     setCartItems([...cartItems, item]);
   };
 
-  // Function to remove an item from the cart
+ 
   const removeItemFromCart = (index) => {
     const newCartItems = [...cartItems];
     newCartItems.splice(index, 1);
     setCartItems(newCartItems);
   };
 
-  // Function to calculate the total price of items in the cart
+ 
   const calculateTotalPrice = () => {
     return cartItems.reduce((total, item) => total + item.price, 0);
   };
